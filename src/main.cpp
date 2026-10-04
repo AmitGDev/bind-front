@@ -156,6 +156,9 @@ static int RunTests() {
   Check(std::as_const(full)() == Tag::kConstLvalue,
         "const lvalue wrapper -> const& overload");
   Check(std::move(full)() == Tag::kRvalue, "rvalue wrapper -> && overload");
+  // The const rvalue overload is the case under test, so the std::move of a
+  // const object is deliberate.
+  // NOLINTNEXTLINE(performance-move-const-arg)
   Check(std::move(std::as_const(full))() == Tag::kConstRvalue,
         "const rvalue wrapper -> const&& overload");
 
